@@ -46,7 +46,6 @@ public abstract class GameCharacter extends GameObject implements Untransposable
 	}
 	
 	private boolean canMoveTo(Point2D position) {
-		// Verifica limites do mapa
 		if (position.getX() < 0 || position.getX() >= 10 || 
 			position.getY() < 0 || position.getY() >= 10) {
 			return false;
@@ -54,7 +53,6 @@ public abstract class GameCharacter extends GameObject implements Untransposable
 		
 		List<GameObject> objectsAtPos = getRoom().getObjects(position);
 		for (GameObject obj : objectsAtPos) {
-			// Não podemos empurrar se houver parede OU outro objeto móvel atrás
 			if (obj instanceof Untransposable || obj instanceof Movable) {
 				return false;
 			}
