@@ -3,7 +3,7 @@ package pt.iscte.poo.game;
 import pt.iscte.poo.gui.ImageGUI;
 
 public class Main {
-
+	//Teste
 	public static void main(String[] args) {
 		ImageGUI gui = ImageGUI.getInstance();
 		GameEngine engine = new GameEngine();
