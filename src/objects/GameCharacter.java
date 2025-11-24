@@ -32,8 +32,9 @@ public abstract class GameCharacter extends GameObject implements Untransposable
 				if(obj instanceof Movable) {
 					Movable movableObj = (Movable) obj;
 					
-					Point2D objectDest = newPosition.plus(dir);
+					if (movableObj.isHeavy() && this instanceof SmallFish) return;
 					
+					Point2D objectDest = newPosition.plus(dir);
 					if(!canMoveTo(objectDest)) return;
 					
 					movableObj.move(dir);

@@ -25,4 +25,9 @@ public class Stone extends GameObject implements Movable {
 		Point2D newPos = getPosition().plus(dir);
 		setPosition(newPos);
 	}
+
+	@Override
+	public boolean isHeavy() {
+		return true;
+	}
 }

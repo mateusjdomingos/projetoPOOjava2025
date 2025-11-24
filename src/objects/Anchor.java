@@ -4,15 +4,15 @@ import pt.iscte.poo.game.Room;
 import pt.iscte.poo.utils.Point2D;
 import pt.iscte.poo.utils.Vector2D;
 
-public class Cup extends GameObject implements Movable {
+public class Anchor extends GameObject implements Movable {
 
-	public Cup(Room room) {
+	public Anchor(Room room) {
 		super(room);
 	}
 
 	@Override
 	public String getName() {
-		return "cup";
+		return "anchor";
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class Cup extends GameObject implements Movable {
 
 	@Override
 	public boolean isHeavy() {
-		return false;
+		return true;
 	}
 	
 }

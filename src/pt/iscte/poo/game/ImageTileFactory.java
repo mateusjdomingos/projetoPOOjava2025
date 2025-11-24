@@ -45,6 +45,18 @@ public class ImageTileFactory {
 			obj = new HoledWall(room);
 			obj.setRoom(room);
 			break;
+		case 'A':
+			obj = new Anchor(room);
+			obj.setRoom(room);
+			break;
+		case 'b':
+			obj = new Bomb(room);
+			obj.setRoom(room);
+			break;
+		case 'T':
+			obj = new Trap(room);
+			obj.setRoom(room);
+			break;
 		}
 		
 		if(obj != null) {
