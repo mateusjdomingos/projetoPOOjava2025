@@ -29,8 +29,7 @@ public abstract class GameCharacter extends GameObject implements Untransposable
 			for(GameObject obj : objectsAtDest) {
 				if(obj instanceof Untransposable) return;
 				
-				if(obj instanceof Movable) {
-					Movable movableObj = (Movable) obj;
+				if(obj instanceof Movable movableObj) {
 					
 					if (movableObj.isHeavy() && this instanceof SmallFish) return;
 					
