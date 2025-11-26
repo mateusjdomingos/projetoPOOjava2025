@@ -4,7 +4,7 @@ import pt.iscte.poo.game.Room;
 import pt.iscte.poo.utils.Vector2D;
 import pt.iscte.poo.utils.Point2D;
 
-public class Trap extends GameObject implements Movable {
+public class Trap extends MovableObject {
 
 	public Trap(Room room) {
 		super(room);

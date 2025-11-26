@@ -1,10 +1,8 @@
 package objects;
 
 import pt.iscte.poo.game.Room;
-import pt.iscte.poo.utils.Point2D;
-import pt.iscte.poo.utils.Vector2D;
 
-public class Cup extends GameObject implements Movable {
+public class Cup extends MovableObject {
 
 	public Cup(Room room) {
 		super(room);
@@ -20,15 +18,4 @@ public class Cup extends GameObject implements Movable {
 		return 2;
 	}
 
-	@Override
-	public void move(Vector2D dir) {
-		Point2D newPos = getPosition().plus(dir);
-		setPosition(newPos);
-	}
-
-	@Override
-	public boolean isHeavy() {
-		return false;
-	}
-	
 }

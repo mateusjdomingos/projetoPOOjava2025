@@ -1,13 +1,14 @@
 package objects;
 
 import pt.iscte.poo.game.Room;
-import pt.iscte.poo.utils.Point2D;
 import pt.iscte.poo.utils.Vector2D;
 
-public class Anchor extends GameObject implements Movable {
+public class Anchor extends MovableObject {
 
 	public Anchor(Room room) {
 		super(room);
+		setMovesRemaining(1);
+	
 	}
 
 	@Override
@@ -21,14 +22,13 @@ public class Anchor extends GameObject implements Movable {
 	}
 
 	@Override
-	public void move(Vector2D dir) {
-		Point2D newPos = getPosition().plus(dir);
-		setPosition(newPos);
+	public boolean isHeavy() {
+		return true;
 	}
 
 	@Override
-	public boolean isHeavy() {
-		return true;
+	public boolean canMove(Vector2D dir) {
+		return dir.getY() == 0;
 	}
 	
 }
