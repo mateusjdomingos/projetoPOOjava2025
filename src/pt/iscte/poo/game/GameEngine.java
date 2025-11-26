@@ -72,6 +72,9 @@ public class GameEngine implements Observer {
 
 	private void processTick() {		
 		lastTickProcessed++;
+		if(currentRoom != null) {
+			currentRoom.step();
+		}
 	}
 
 	public void updateGUI() {

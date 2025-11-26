@@ -1,6 +1,9 @@
 package objects;
 
+import java.util.List;
+
 import pt.iscte.poo.game.Room;
+import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
 import pt.iscte.poo.utils.Vector2D;
 
@@ -51,4 +54,27 @@ private int movesRemaining = -1; // -1 indicates unlimited moves
         return 2; // Default layer
     }
 
+    public void fall() {
+        if(!isSupported()) {
+            move(Direction.DOWN.asVector());
+        }
+    }
+
+    public boolean isSupported() {
+        Point2D positionBelow = getPosition().plus(Direction.DOWN.asVector());
+
+        if(positionBelow.getY() >= 10) return true; // Ground level
+
+        List<GameObject> objectsBelow = getRoom().getObjects(positionBelow);
+
+        for(GameObject obj : objectsBelow) {
+            if(obj instanceof Untransposable || 
+               obj instanceof Movable || 
+               obj instanceof GameCharacter) {
+                return true;
+            }
+        }
+
+        return false; 
+    }
 }

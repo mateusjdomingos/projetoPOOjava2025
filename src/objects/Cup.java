@@ -2,10 +2,15 @@ package objects;
 
 import pt.iscte.poo.game.Room;
 
-public class Cup extends MovableObject {
+public class Cup extends MovableObject implements Steppable {
 
 	public Cup(Room room) {
 		super(room);
+	}
+
+	@Override
+	public void step() {
+		fall();
 	}
 
 	@Override

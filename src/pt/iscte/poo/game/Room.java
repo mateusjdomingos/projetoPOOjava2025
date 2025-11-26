@@ -113,4 +113,12 @@ public class Room {
 		return r;
 		
 	}
+
+	public void step() {
+		for(GameObject obj : objects) {
+			if(obj instanceof Steppable) {
+				((Steppable) obj).step();
+			}
+		}
+	}
 }

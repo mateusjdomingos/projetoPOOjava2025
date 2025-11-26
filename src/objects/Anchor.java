@@ -3,7 +3,7 @@ package objects;
 import pt.iscte.poo.game.Room;
 import pt.iscte.poo.utils.Vector2D;
 
-public class Anchor extends MovableObject {
+public class Anchor extends MovableObject implements Steppable {
 
 	public Anchor(Room room) {
 		super(room);
@@ -29,6 +29,11 @@ public class Anchor extends MovableObject {
 	@Override
 	public boolean canMove(Vector2D dir) {
 		return dir.getY() == 0;
+	} 
+
+	@Override
+	public void step() {
+		fall();
 	}
 	
 }

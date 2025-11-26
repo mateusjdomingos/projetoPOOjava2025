@@ -2,10 +2,14 @@ package objects;
 
 import pt.iscte.poo.game.Room;
 
-public class Stone extends MovableObject {
+public class Stone extends MovableObject implements Steppable {
 	
 	public Stone(Room room) {
 		super(room);
+	}
+
+	public void step() {
+		fall();
 	}
 
 	@Override

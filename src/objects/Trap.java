@@ -1,10 +1,8 @@
 package objects;
 
 import pt.iscte.poo.game.Room;
-import pt.iscte.poo.utils.Vector2D;
-import pt.iscte.poo.utils.Point2D;
 
-public class Trap extends MovableObject {
+public class Trap extends GameObject implements Untransposable {
 
 	public Trap(Room room) {
 		super(room);
@@ -18,19 +16,5 @@ public class Trap extends MovableObject {
 	@Override
 	public int getLayer() {
 		return 2;
-	}
-
-	@Override
-	public void move(Vector2D dir) {
-		Point2D newPos = getPosition().plus(dir);
-		setPosition(newPos);
-		
-	}
-
-	@Override
-	public boolean isHeavy() {
-		return true;
-	}
-	
-	
+	}	
 }
