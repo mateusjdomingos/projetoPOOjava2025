@@ -17,8 +17,9 @@ public abstract class GameCharacter extends GameObject implements Untransposable
 
 	
 	public void move(Vector2D dir) {
-
-		
+      
+	// Não faz sentido o move ser usado para objetos dentro do GameCharacter
+	// por isso terá de ser alterado no futuro	
 		
 		Point2D newPosition = getPosition().plus(dir);
 		if (newPosition.getX() >= 0 && newPosition.getX() < 10 && 
@@ -29,12 +30,12 @@ public abstract class GameCharacter extends GameObject implements Untransposable
 			for(GameObject obj : objectsAtDest) {
 				if(obj instanceof Untransposable) return;
 				
-				if(obj instanceof Movable movableObj) {
+				if(obj instanceof MovableObject movableObj) {
 					
 					if (movableObj.isHeavy() && this instanceof SmallFish) return;
 					
 					Point2D objectDest = newPosition.plus(dir);
-					if(!canMoveTo(objectDest)) return;
+					if(!canMoveTo(objectDest)) return; 
 					
 					movableObj.move(dir);
 				}
@@ -53,7 +54,7 @@ public abstract class GameCharacter extends GameObject implements Untransposable
 		
 		List<GameObject> objectsAtPos = getRoom().getObjects(position);
 		for (GameObject obj : objectsAtPos) {
-			if (obj instanceof Untransposable || obj instanceof Movable) {
+			if (obj instanceof Untransposable || obj instanceof MovableObject) {
 				return false;
 			}
 		}

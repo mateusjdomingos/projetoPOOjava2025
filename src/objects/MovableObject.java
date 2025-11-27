@@ -7,7 +7,7 @@ import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
 import pt.iscte.poo.utils.Vector2D;
 
-public class MovableObject extends GameObject implements Movable { //Movable é Redundante
+public class MovableObject extends GameObject { //Movable é Redundante
 
 private int movesRemaining = -1; // -1 indica movimentos infinitos
 
@@ -15,7 +15,6 @@ private int movesRemaining = -1; // -1 indica movimentos infinitos
         super(room);
     }
 
-    @Override
     public void move(Vector2D dir) {
         Point2D newPos = getPosition().plus(dir);
         setPosition(newPos);
@@ -26,7 +25,6 @@ private int movesRemaining = -1; // -1 indica movimentos infinitos
         }
     }
 
-    @Override
     public boolean canMove(Vector2D dir) {
         if(movesRemaining == 0) {
             return false;
@@ -39,7 +37,6 @@ private int movesRemaining = -1; // -1 indica movimentos infinitos
         this.movesRemaining = moves;
     }
 
-    @Override
     public boolean isHeavy() {
         return false; // Implementação padrão, pode ser sobrescrito
     }
@@ -69,7 +66,7 @@ private int movesRemaining = -1; // -1 indica movimentos infinitos
 
         for(GameObject obj : objectsBelow) {
             if(obj instanceof Untransposable || 
-               obj instanceof Movable || 
+               obj instanceof MovableObject || 
                obj instanceof GameCharacter) {
                 return true;
             }
