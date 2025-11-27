@@ -20,7 +20,7 @@ private int movesRemaining = -1; // -1 indica movimentos infinitos
     public boolean canBeMoved(GameCharacter mover, Vector2D dir) {
         if(movesRemaining == 0) return false;
 
-        if(this.isHeavy() && mover instanceof SmallFish) return false;
+        if(this.getWeight() > mover.getStrength()) return false;
         
         return true;
     }
@@ -33,14 +33,6 @@ private int movesRemaining = -1; // -1 indica movimentos infinitos
         if(movesRemaining > 0) {
             movesRemaining--;
         }
-    }
-
-    public boolean canMove(Vector2D dir) {
-        if(movesRemaining == 0) {
-            return false;
-        }
-        
-        return true; 
     }
 
     public void setMovesRemaining(int moves) {
