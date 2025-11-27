@@ -22,4 +22,9 @@ public class Bomb extends MovableObject implements Steppable {
 	public int getLayer() {
 		return 2;
 	}	
+
+	@Override
+	public int getWeight() {
+		return 1;
+	}
 }

@@ -7,12 +7,22 @@ import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
 import pt.iscte.poo.utils.Vector2D;
 
-public class MovableObject extends GameObject { //Movable é Redundante
+public abstract class MovableObject extends GameObject {
 
 private int movesRemaining = -1; // -1 indica movimentos infinitos
 
     public MovableObject(Room room) {
         super(room);
+    }
+
+    public abstract int getWeight();
+
+    public boolean canBeMoved(GameCharacter mover, Vector2D dir) {
+        if(movesRemaining == 0) return false;
+
+        if(this.isHeavy() && mover instanceof SmallFish) return false;
+        
+        return true;
     }
 
     public void move(Vector2D dir) {
@@ -38,7 +48,7 @@ private int movesRemaining = -1; // -1 indica movimentos infinitos
     }
 
     public boolean isHeavy() {
-        return false; // Implementação padrão, pode ser sobrescrito
+        return getWeight() > 1; // Implementação padrão, pode ser sobrescrito
     }
 
     @Override
@@ -66,7 +76,6 @@ private int movesRemaining = -1; // -1 indica movimentos infinitos
 
         for(GameObject obj : objectsBelow) {
             if(obj instanceof Untransposable || 
-               obj instanceof MovableObject || 
                obj instanceof GameCharacter) {
                 return true;
             }

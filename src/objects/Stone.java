@@ -26,4 +26,9 @@ public class Stone extends MovableObject implements Steppable {
 	public boolean isHeavy() {
 		return true;
 	}
+
+	@Override
+	public int getWeight() {
+		return 2;
+	}
 }

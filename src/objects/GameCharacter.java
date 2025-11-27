@@ -13,6 +13,14 @@ public abstract class GameCharacter extends GameObject implements Untransposable
 	public GameCharacter(Room room) {
 		super(room);
 	}
+
+	public boolean canPush(MovableObject obj, Vector2D dir) {
+
+		if(!obj.canBeMoved(this, dir)) return false;
+
+		Point2D objectDest = obj.getPosition().plus(dir);
+		return canMoveTo(objectDest);
+	}
 	
 
 	
@@ -32,12 +40,10 @@ public abstract class GameCharacter extends GameObject implements Untransposable
 				
 				if(obj instanceof MovableObject movableObj) {
 					
-					if (movableObj.isHeavy() && this instanceof SmallFish) return;
-					
-					Point2D objectDest = newPosition.plus(dir);
-					if(!canMoveTo(objectDest)) return; 
-					
-					movableObj.move(dir);
+					if(moveStack(movableObj, dir)) {
+						setPosition(newPosition);
+					}
+					return;
 				}
 			}
 			
@@ -58,6 +64,28 @@ public abstract class GameCharacter extends GameObject implements Untransposable
 				return false;
 			}
 		}
+		return true;
+	}
+
+	private boolean moveStack(MovableObject obj, Vector2D dir) {
+		if(!obj.canBeMoved(this, dir)) return false;
+
+		Point2D nextPos = obj.getPosition().plus(dir);
+
+		if(nextPos.getX() < 0 || nextPos.getX() >= 10 || 
+		   nextPos.getY() < 0 || nextPos.getY() >= 10) return false;
+		
+		List<GameObject> objectsAtNextPos = getRoom().getObjects(nextPos);
+
+		for(GameObject nextObj : objectsAtNextPos) {
+			if(nextObj instanceof Untransposable) return false;
+
+			if(nextObj instanceof MovableObject) {
+				if(!moveStack((MovableObject)nextObj, dir)) return false;
+			}
+		}
+
+		obj.move(dir);
 		return true;
 	}
 

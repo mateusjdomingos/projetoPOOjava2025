@@ -26,14 +26,24 @@ public class Anchor extends MovableObject implements Steppable {
 		return true;
 	}
 
-	@Override
-	public boolean canMove(Vector2D dir) {
-		return dir.getY() == 0;
+	@Override 
+	public boolean canBeMoved(GameCharacter mover, Vector2D dir) {
+		boolean parentSaysYes = super.canBeMoved(mover, dir);
+		if(!parentSaysYes) return false;
+
+		if(dir.getY() != 0) return false;
+
+		return true;
 	} 
 
 	@Override
 	public void step() {
 		fall();
+	}
+
+	@Override
+	public int getWeight() {
+		return 2;
 	}
 	
 }

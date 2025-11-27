@@ -10,6 +10,10 @@ public class SmallFish extends GameCharacter {
 		super(room);
 	}
 
+	public int getStrength() {
+		return 1; // SmallFish tem força leve
+	}
+
 	public static SmallFish getInstance() {
 		return sf;
 	}

@@ -39,6 +39,10 @@ public abstract class GameObject implements ImageTile{
 		this.room = room;
 	}
 
+	public int getStrength() {
+		return 0; //Por defeito os objetos não têm força
+	}
+
 	public static GameObject create(char type, Room room, Point2D pos) {
 		GameObject obj = null;
 		

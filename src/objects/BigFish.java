@@ -10,6 +10,10 @@ public class BigFish extends GameCharacter {
 		super(room);
 	}
 
+	public int getStrength() {
+		return 10; // BigFish tem força pesada
+	}
+
 	public static BigFish getInstance() {
 		return bf;
 	}

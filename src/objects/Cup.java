@@ -23,4 +23,9 @@ public class Cup extends MovableObject implements Steppable {
 		return 2;
 	}
 
+	@Override
+	public int getWeight() {
+		return 1;
+	}
+
 }
