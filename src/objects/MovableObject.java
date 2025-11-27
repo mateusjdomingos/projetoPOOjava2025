@@ -41,12 +41,12 @@ private int movesRemaining = -1; // -1 indica movimentos infinitos
 
     @Override
     public boolean isHeavy() {
-        return false; // Default implementation, can be overridden
+        return false; // Implementação padrão, pode ser sobrescrito
     }
 
     @Override
     public String getName() {
-        return ""; // Default implementation, should be overridden
+        return ""; // Implemnentação padrão, deve ser sobrescrito
     }
 
     @Override
@@ -63,7 +63,7 @@ private int movesRemaining = -1; // -1 indica movimentos infinitos
     public boolean isSupported() {
         Point2D positionBelow = getPosition().plus(Direction.DOWN.asVector());
 
-        if(positionBelow.getY() >= 10) return true; // Ground level
+        if(positionBelow.getY() >= 10) return true; // Chão do aquário
 
         List<GameObject> objectsBelow = getRoom().getObjects(positionBelow);
 
