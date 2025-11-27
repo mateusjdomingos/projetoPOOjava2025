@@ -9,7 +9,7 @@ import pt.iscte.poo.utils.Vector2D;
 
 public class MovableObject extends GameObject implements Movable {
 
-private int movesRemaining = -1; // -1 indicates unlimited moves
+private int movesRemaining = -1; // -1 indica movimentos infinitos
 
     public MovableObject(Room room) {
         super(room);
