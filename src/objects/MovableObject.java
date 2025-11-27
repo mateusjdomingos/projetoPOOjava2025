@@ -7,7 +7,7 @@ import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
 import pt.iscte.poo.utils.Vector2D;
 
-public class MovableObject extends GameObject implements Movable {
+public class MovableObject extends GameObject implements Movable { //Movable é Redundante
 
 private int movesRemaining = -1; // -1 indica movimentos infinitos
 

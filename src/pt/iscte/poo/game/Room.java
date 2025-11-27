@@ -97,7 +97,7 @@ public class Room {
 			        char c = line.charAt(x);
 			        
 			        if(c != ' ') {
-			        	GameObject obj = ImageTileFactory.create(c, r, pos);
+			        	GameObject obj = GameObject.create(c, r, pos);
 			        	
 			        	if(obj != null) {
 			        		r.addObject(obj);

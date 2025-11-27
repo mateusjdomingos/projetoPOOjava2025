@@ -45,7 +45,7 @@ public abstract class GameCharacter extends GameObject implements Untransposable
 		
 	}
 	
-	private boolean canMoveTo(Point2D position) {
+	private boolean canMoveTo(Point2D position) { //Deverá ser abstrato no futuro
 		if (position.getX() < 0 || position.getX() >= 10 || 
 			position.getY() < 0 || position.getY() >= 10) {
 			return false;
