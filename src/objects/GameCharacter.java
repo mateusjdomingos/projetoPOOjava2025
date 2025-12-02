@@ -36,8 +36,6 @@ public abstract class GameCharacter extends GameObject implements Untransposable
 			List<GameObject> objectsAtDest = getRoom().getObjects(newPosition);
 			
 			for(GameObject obj : objectsAtDest) {
-				if(obj instanceof Untransposable) return;
-				
 				if(obj instanceof MovableObject movableObj) {
 					
 					if(moveStack(movableObj, dir)) {
@@ -45,7 +43,11 @@ public abstract class GameCharacter extends GameObject implements Untransposable
 					}
 					return;
 				}
+
+				if(!obj.interact(this)) return;
 			}
+
+			
 			
 			setPosition(newPosition);
 		}
@@ -60,9 +62,9 @@ public abstract class GameCharacter extends GameObject implements Untransposable
 		
 		List<GameObject> objectsAtPos = getRoom().getObjects(position);
 		for (GameObject obj : objectsAtPos) {
-			if (obj instanceof Untransposable || obj instanceof MovableObject) {
-				return false;
-			}
+			if(obj instanceof MovableObject) continue;
+			
+			if(!obj.interact(this)) return false;
 		}
 		return true;
 	}
@@ -77,16 +79,40 @@ public abstract class GameCharacter extends GameObject implements Untransposable
 		
 		List<GameObject> objectsAtNextPos = getRoom().getObjects(nextPos);
 
-		for(GameObject nextObj : objectsAtNextPos) {
-			if(nextObj instanceof Untransposable) return false;
+		for(GameObject nextObj : objectsAtNextPos) { 
+//			if (nextObj instanceof Holed) { //Objetos furados podem ser ignorados
+//				if(obj instanceof Slim) { //Objetos magros podem passar por objetos furados
+//					continue;
+//				} else {
+//					return false;
+//				}
+//			}
+//			
+//			if(nextObj instanceof Untransposable) return false;
+//
+//			if(nextObj instanceof MovableObject) { //Move em cadeia
+//				if(!moveStack((MovableObject)nextObj, dir)) return false;
+//			}
+//		}
+//		obj.move(dir);
+//		return true;
+		    // 1. Movimento em Cadeia (Recursividade)
+            if(nextObj instanceof MovableObject) { 
+                if(!moveStack((MovableObject)nextObj, dir)) return false;
+                continue; // Já tratámos deste objeto, passar ao próximo
+            }
 
-			if(nextObj instanceof MovableObject) {
-				if(!moveStack((MovableObject)nextObj, dir)) return false;
-			}
-		}
+            // 2. Verificação Genérica (Paredes normais E Paredes com buraco)
+            // Aqui usamos o facto de o teu interact aceitar "GameObject" e não apenas Character!
+            // Perguntamos: "O obstáculo (nextObj) deixa passar o objeto que estou a empurrar (obj)?"
+            if (!nextObj.interact(obj)) {
+                return false; // Bloqueia (seja parede normal ou parede c/ buraco vs objeto gordo)
+            }
+        }
 
-		obj.move(dir);
-		return true;
+        obj.move(dir);
+        return true;
+
 	}
 
 	@Override

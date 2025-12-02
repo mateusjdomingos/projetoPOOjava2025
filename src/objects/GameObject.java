@@ -4,7 +4,7 @@ import pt.iscte.poo.game.Room;
 import pt.iscte.poo.gui.ImageTile;
 import pt.iscte.poo.utils.Point2D;
 
-public abstract class GameObject implements ImageTile{
+public abstract class GameObject implements ImageTile, Interactable{
 	
 	private Point2D position;
 	private Room room;
@@ -41,6 +41,11 @@ public abstract class GameObject implements ImageTile{
 
 	public int getStrength() {
 		return 0; //Por defeito os objetos não têm força
+	}
+
+	@Override
+	public boolean interact(GameObject interactor) { // Os objetos untransponíveis não podem ser interagidos
+		return !(this instanceof Untransposable);
 	}
 
 	public static GameObject create(char type, Room room, Point2D pos) {

@@ -2,7 +2,7 @@ package objects;
 
 import pt.iscte.poo.game.Room;
 
-public class Cup extends MovableObject implements Steppable {
+public class Cup extends MovableObject implements Steppable, Slim {
 
 	public Cup(Room room) {
 		super(room);

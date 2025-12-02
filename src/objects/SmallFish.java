@@ -2,7 +2,7 @@ package objects;
 
 import pt.iscte.poo.game.Room;
 
-public class SmallFish extends GameCharacter {
+public class SmallFish extends GameCharacter implements Slim {
 
 	private static SmallFish sf = new SmallFish(null);
 	
