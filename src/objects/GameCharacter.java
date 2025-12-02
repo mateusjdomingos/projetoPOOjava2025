@@ -34,22 +34,23 @@ public abstract class GameCharacter extends GameObject implements Untransposable
 			newPosition.getY() >= 0 && newPosition.getY() < 10) {
 			
 			List<GameObject> objectsAtDest = getRoom().getObjects(newPosition);
+
+			MovableObject objectToMove = null;
 			
 			for(GameObject obj : objectsAtDest) {
-				if(obj instanceof MovableObject movableObj) {
-					
-					if(moveStack(movableObj, dir)) {
-						setPosition(newPosition);
-					}
-					return;
-				}
+				if(obj instanceof MovableObject) {
+                    objectToMove = (MovableObject) obj;
+                    continue; 
+                }
 
 				if(!obj.interact(this)) return;
 			}
 
-			
-			
-			setPosition(newPosition);
+			if(objectToMove != null) {
+				if(moveStack(objectToMove, dir)) setPosition(newPosition);
+			} else {
+				setPosition(newPosition);
+			}
 		}
 		
 	}
@@ -80,31 +81,11 @@ public abstract class GameCharacter extends GameObject implements Untransposable
 		List<GameObject> objectsAtNextPos = getRoom().getObjects(nextPos);
 
 		for(GameObject nextObj : objectsAtNextPos) { 
-//			if (nextObj instanceof Holed) { //Objetos furados podem ser ignorados
-//				if(obj instanceof Slim) { //Objetos magros podem passar por objetos furados
-//					continue;
-//				} else {
-//					return false;
-//				}
-//			}
-//			
-//			if(nextObj instanceof Untransposable) return false;
-//
-//			if(nextObj instanceof MovableObject) { //Move em cadeia
-//				if(!moveStack((MovableObject)nextObj, dir)) return false;
-//			}
-//		}
-//		obj.move(dir);
-//		return true;
-		    // 1. Movimento em Cadeia (Recursividade)
             if(nextObj instanceof MovableObject) { 
                 if(!moveStack((MovableObject)nextObj, dir)) return false;
                 continue; // Já tratámos deste objeto, passar ao próximo
             }
 
-            // 2. Verificação Genérica (Paredes normais E Paredes com buraco)
-            // Aqui usamos o facto de o teu interact aceitar "GameObject" e não apenas Character!
-            // Perguntamos: "O obstáculo (nextObj) deixa passar o objeto que estou a empurrar (obj)?"
             if (!nextObj.interact(obj)) {
                 return false; // Bloqueia (seja parede normal ou parede c/ buraco vs objeto gordo)
             }
