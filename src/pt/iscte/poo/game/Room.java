@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import objects.*;
+import pt.iscte.poo.gui.ImageGUI;
 import pt.iscte.poo.utils.Point2D;
 
 public class Room {
@@ -16,6 +17,8 @@ public class Room {
 	private GameEngine engine;
 	private Point2D smallFishStartingPosition;
 	private Point2D bigFishStartingPosition;
+	private boolean smallFishExisted = false;
+	private boolean bigFishExisted = false;
 	
 	public Room() {
 		objects = new ArrayList<GameObject>();
@@ -115,10 +118,28 @@ public class Room {
 	}
 
 	public void step() {
-		for(GameObject obj : objects) {
+		for(GameObject obj : new ArrayList<>(objects)) {
 			if(obj instanceof Steppable) {
 				((Steppable) obj).step();
 			}
+		}
+	}
+
+	public void exit(GameCharacter fish) {
+		if(fish instanceof SmallFish) {
+			smallFishExisted = true;
+			removeObject(fish);
+			ImageGUI.getInstance().setStatusMessage("Peixe Pequeno saiu!");
+		} else if(fish instanceof BigFish) {
+			bigFishExisted = true;
+			removeObject(fish);
+			ImageGUI.getInstance().setStatusMessage("Peixe Grande saiu!");
+		}
+		
+		
+		if(smallFishExisted && bigFishExisted) {
+			engine.nextLevel();
+			engine.updateGUI();
 		}
 	}
 }

@@ -35,6 +35,11 @@ private int movesRemaining = -1; // -1 indica movimentos infinitos
         }
     }
 
+    private void gravityMove(Vector2D dir) {
+        Point2D newPos = getPosition().plus(dir);
+        setPosition(newPos);
+    }
+
     public void setMovesRemaining(int moves) {
         this.movesRemaining = moves;
     }
@@ -55,7 +60,7 @@ private int movesRemaining = -1; // -1 indica movimentos infinitos
 
     public void fall() {
         if(!isSupported()) {
-            move(Direction.DOWN.asVector());
+            gravityMove(Direction.DOWN.asVector());
         }
     }
 

@@ -30,27 +30,28 @@ public abstract class GameCharacter extends GameObject implements Untransposable
 	// por isso terá de ser alterado no futuro	
 		
 		Point2D newPosition = getPosition().plus(dir);
-		if (newPosition.getX() >= 0 && newPosition.getX() < 10 && 
-			newPosition.getY() >= 0 && newPosition.getY() < 10) {
+		if(newPosition.getX() < 0 || newPosition.getX() >= 10 || 
+		   newPosition.getY() < 0 || newPosition.getY() >= 10) { 
+			getRoom().exit(this);
+			return;
+		}
+		List<GameObject> objectsAtDest = getRoom().getObjects(newPosition);
+
+		MovableObject objectToMove = null;
 			
-			List<GameObject> objectsAtDest = getRoom().getObjects(newPosition);
+		for(GameObject obj : objectsAtDest) {
+			if(obj instanceof MovableObject) {
+                objectToMove = (MovableObject) obj;
+                continue; 
+            }
 
-			MovableObject objectToMove = null;
-			
-			for(GameObject obj : objectsAtDest) {
-				if(obj instanceof MovableObject) {
-                    objectToMove = (MovableObject) obj;
-                    continue; 
-                }
+			if(!obj.interact(this)) return;
+		}
 
-				if(!obj.interact(this)) return;
-			}
-
-			if(objectToMove != null) {
-				if(moveStack(objectToMove, dir)) setPosition(newPosition);
-			} else {
-				setPosition(newPosition);
-			}
+		if(objectToMove != null) {
+			if(moveStack(objectToMove, dir)) setPosition(newPosition);
+		} else {
+			setPosition(newPosition);
 		}
 		
 	}

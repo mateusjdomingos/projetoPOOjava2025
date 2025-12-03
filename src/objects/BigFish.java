@@ -20,7 +20,7 @@ public class BigFish extends GameCharacter {
 	
 	@Override
 	public String getName() {
-		return "bigFishLeft";
+		return "bigFishRight";
 	}
 
 	@Override
