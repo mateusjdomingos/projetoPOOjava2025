@@ -22,8 +22,6 @@ public abstract class GameCharacter extends GameObject implements Untransposable
 		return canMoveTo(objectDest);
 	}
 	
-
-	
 	public void move(Vector2D dir) {
       
 	// Não faz sentido o move ser usado para objetos dentro do GameCharacter
@@ -40,12 +38,21 @@ public abstract class GameCharacter extends GameObject implements Untransposable
 		MovableObject objectToMove = null;
 			
 		for(GameObject obj : objectsAtDest) {
+			if(obj.interact(this)) continue;
+
+			
 			if(obj instanceof MovableObject) {
                 objectToMove = (MovableObject) obj;
                 continue; 
             }
 
-			if(!obj.interact(this)) return;
+
+			if(obj instanceof MovableObject) {
+				objectToMove = (MovableObject) obj;
+				continue;
+			}
+
+			return;
 		}
 
 		if(objectToMove != null) {
@@ -56,7 +63,7 @@ public abstract class GameCharacter extends GameObject implements Untransposable
 		
 	}
 	
-	private boolean canMoveTo(Point2D position) { //Deverá ser abstrato no futuro
+	private boolean canMoveTo(Point2D position) {
 		if (position.getX() < 0 || position.getX() >= 10 || 
 			position.getY() < 0 || position.getY() >= 10) {
 			return false;

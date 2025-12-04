@@ -64,6 +64,12 @@ private int movesRemaining = -1; // -1 indica movimentos infinitos
         }
     }
 
+    public void floatUp() {
+        if(!isBlockedAbove()) {
+            gravityMove(Direction.UP.asVector());
+        }
+    }
+
     public boolean isSupported() {
         Point2D positionBelow = getPosition().plus(Direction.DOWN.asVector());
 
@@ -83,5 +89,31 @@ private int movesRemaining = -1; // -1 indica movimentos infinitos
         }
 
         return false; 
+    }
+
+    public boolean isBlockedAbove() {
+        Point2D positionAbove = getPosition().plus(Direction.UP.asVector());
+
+        if(positionAbove.getY() < 0) return true;
+
+        List<GameObject> objectsAbove = getRoom().getObjects(positionAbove);
+
+        for(GameObject obj : objectsAbove) {
+            if(obj instanceof MovableObject || 
+               obj instanceof GameCharacter) {
+                return true;
+            }
+
+            if(!obj.interact(this)) {
+                return true;
+            }
+        }
+
+        return false; 
+    }
+
+    @Override
+    public boolean interact(GameObject interator) {
+        return false; // Implementação padrão, pode ser sobrescrito
     }
 }

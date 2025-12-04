@@ -48,26 +48,27 @@ public class GameEngine implements Observer {
 		if (ImageGUI.getInstance().wasKeyPressed()) {
 			int k = ImageGUI.getInstance().keyPressed();
 			
-			
-			if(k == KeyEvent.VK_SPACE) { //Este if verifica se a tecla é espaço
-				if (selectedFish == SmallFish.getInstance()) { //se for o peixe pequeno passamos a movimentar o grande
-					selectedFish = BigFish.getInstance();
-					ImageGUI.getInstance().setStatusMessage("Peixe Grande Selecionado");
-				} else {
-					selectedFish = SmallFish.getInstance();
-					ImageGUI.getInstance().setStatusMessage("Peixe Pequeno Selecionado");
-				}
-			}
-
 			if(k == KeyEvent.VK_R) { //Se a tecla premida for R vai reiniciar o nível
 				startLevel(currentLevel);
+			} else if(currentRoom != null && !currentRoom.isLevelFailed()) {
+			
+				if(k == KeyEvent.VK_SPACE) { //Este if verifica se a tecla é espaço
+					if (selectedFish == SmallFish.getInstance()) { //se for o peixe pequeno passamos a movimentar o grande
+						selectedFish = BigFish.getInstance();
+						ImageGUI.getInstance().setStatusMessage("Peixe Grande Selecionado");
+					} else {
+						selectedFish = SmallFish.getInstance();
+						ImageGUI.getInstance().setStatusMessage("Peixe Pequeno Selecionado");
+					}
+				}
+			
+				//Se a tecla premida for direção vai mover o peixe selecionado
+				if (Direction.isDirection(k)) {
+		        	selectedFish.move(Direction.directionFor(k).asVector());
+
+					currentRoom.processEnemyActions();
+		    	}
 			}
-			
-			//Se a tecla premida for direção vai mover o peixe selecionado
-			if (Direction.isDirection(k)) {
-		        selectedFish.move(Direction.directionFor(k).asVector());
-		    }
-			
 		}
 		int t = ImageGUI.getInstance().getTicks();
 		while (lastTickProcessed < t) {

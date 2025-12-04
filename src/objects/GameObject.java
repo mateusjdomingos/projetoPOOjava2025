@@ -100,6 +100,10 @@ public abstract class GameObject implements ImageTile, Interactable{
 			obj = new Trap(room);
 			obj.setRoom(room);
 			break;
+		case 'O':
+			obj = new Buoy(room);
+			obj.setRoom(room);
+			break;
 		}
 		
 		if(obj != null) {

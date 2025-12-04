@@ -19,9 +19,19 @@ public class Room {
 	private Point2D bigFishStartingPosition;
 	private boolean smallFishExisted = false;
 	private boolean bigFishExisted = false;
+
+	private boolean levelFailed = false;
 	
 	public Room() {
 		objects = new ArrayList<GameObject>();
+	}
+
+	public boolean isLevelFailed() {
+		return levelFailed;
+	}
+
+	public void setLevelFailed(boolean failed) {
+		this.levelFailed = failed;
 	}
 
 	private void setName(String name) {
@@ -140,6 +150,14 @@ public class Room {
 		if(smallFishExisted && bigFishExisted) {
 			engine.nextLevel();
 			engine.updateGUI();
+		}
+	}
+
+	public void processEnemyActions() {
+		for(GameObject obj : new ArrayList<>(objects)) {
+			if(obj instanceof Enemy) {
+				((Krab) obj).moveRandomly();
+			}
 		}
 	}
 }
